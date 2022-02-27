@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Assignment5: Lottery Sim</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: green;
+  color: white;
+}
+</style>
+
+</head>
+<body>
+<h1>Lottery Simulator</h1>
+<div id="myDiv">
+<p id="pick"></p>
+<p id="pickSort"> </p>
+<p id="luckyBall"></p>
+<p id="winningNum"></p>
+<p id="winLuckyBall"></p>
+<p id="match"> </p>
+<p id="luckyBallMatch"> </p>
+<h3 id="payout"></h3>
+</div>
+
+<script language="javascript">
+
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); 
+  //The maximum is inclusive and the minimum is inclusive
+}
+
+function lottery() {
+var picks = [];
+var picks_sort = [];
+
+i=0;
+while (i<5){
+  val = getRandomIntInclusive(1, 48);
+  if(!picks.includes(val)){
+    picks.push(val);
+    picks_sort.push(val)
+    i = i+1;
+  }
+}
+
+picks_sort.sort(function(a, b){return a - b});
+
+luckyBall = getRandomIntInclusive(1, 18);
+
+winCombo = [12,15,24,35,48];
+winLuckyBall = 3;
+
+matches= 0;
+luckyMatch = 0;
+
+for (i=0; i<5;i++){
+  for (j=0; j<5;j++){
+    if (winCombo[i] == picks_sort[j]){
+      matches = matches + 1;
+}}}
+
+if (luckyBall == winLuckyBall)
+      luckyMatch = 1;
+
+winArr= ["$0", "$4", "$0", "$6", "$3", "$25", "$20", "$150", "$200", "$5,000", "$25,000 a YEAR for LIFE", "$7,000 a WEEK for LIFE"];
+winnings = winArr[matches*2 + luckyMatch];
+
+if (luckyMatch == 1)
+  lB  = "Matches!"
+else
+  lB = "Doesn't Match"
+
+document.getElementById("pick").innerHTML = "Your Picks: " + picks.join(" ");
+document.getElementById("pickSort").innerHTML = "Your Picks Sorted: " + picks_sort.join(" ");
+document.getElementById("luckyBall").innerHTML = "Your Lucky Ball: " + luckyBall;
+document.getElementById("winningNum").innerHTML = "Winning Picks: " + winCombo.join(" ");
+document.getElementById("winLuckyBall").innerHTML = "Winning Lucky Ball: " + winLuckyBall;
+document.getElementById("match").innerHTML = "Matches: " + matches;
+document.getElementById("luckyBallMatch").innerHTML = "Lucky Ball " + lB;
+document.getElementById("payout").innerHTML = "Your Winnings: " + winnings;
+
+
+}
+</script>
+
+ <input type ="button" value="Get your picks!"  name="btn1" onclick="lottery()">
+</body>
+</html>
